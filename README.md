@@ -7,19 +7,19 @@
 - 官方网站：http://reactivex.io/rxjs/  
 - 实例讲解  
 (1)实例环境: JSBIN   
-地址:   
-https://jsbin.com/zulotomeyi/edit?html  
+地址:https://jsbin.com/zulotomeyi/edit?html  
 (2)引用外部地址：  
 https://unpkg.com/@reactivex/rxjs@5.0.3/dist/global/Rx.js  
 (3)选用的脚本语言是 ：ES6  
 
 界面如下图所示:
-
-JS代码:
+![image](https://github.com/13001595866/RxJS/blob/master/photo/photo1.png?raw=true)
+图1-1 JSBIN 界面图  
+##### JS代码:
 1. 　  获取id为height的dom对象
 1. 　  将height的keyup事件转换为Rx的事件流, 即Observable, 
-1. 变量命名以$结尾，这是一种约定俗称的用法，Rxjs的数据
-1. 是以流的形式存在，以$结尾表明这是一个数据流，即string。
+ 变量命名以$结尾，这是一种约定俗称的用法，Rxjs的数据
+ 是以流的形式存在，以$结尾表明这是一个数据流，即string。
 1. 　 Rx就是一个观察者模式, 因此可以订阅
  　 
 
@@ -29,6 +29,7 @@ const height$ = Rx.Observable.fromEvent(height, "keyup");
 height$.subscribe( val => console.log(val))
 ```
 控制台输出:
+![image](https://github.com/13001595866/RxJS/blob/master/photo/2.png?raw=true)
 
 图 1-2 控制台输出图  
 height$的订阅函数里面输出了height的keyup的事件对象。
@@ -39,6 +40,7 @@ height$的订阅函数里面输出了height的keyup的事件对象。
 height$.subscribe( val => console.log(val.target.value + ' ' + new Date()))
 ```
 Console的控制台输出结果:
+![image](https://github.com/13001595866/RxJS/blob/master/photo/3.png?raw=true)
 图 1-3 控制台输出图
 在文本框内陆续输入123456, 控制台输出结果。  
 Rxjs 在控制台上输出一系列数据，这些数据在不同的时间点上，形成了沿着不同时间点走的事件流，即数据流。在不同的时间点上发射出一个值，这些值汇总成了Rxjs的数据流。从结果上我们可以得出Rxjs对数据的处理上，是加入了时间的考量。
@@ -63,13 +65,15 @@ const area$ = Rx.Observable.combineLatest(length$, width$, (l, w) => {return l *
 area$.subscribe(val => area.innerHTML = val);
 ```
 输出结果：
+![image](https://github.com/13001595866/RxJS/blob/master/photo/4.png?raw=true)
 combineLatest操作符将length$和width$两个数据流进行合并依据条件转换成流area$。只有当两个流中都有数据的时候,才进行合并转换，如果其中一个流没有值，则不进行转换。
-转换过程 如下图所示：  
+转换过程 如下图所示： 
+![image](https://github.com/13001595866/RxJS/blob/master/photo/5.png?raw=true)
 当length$ 数据流中出现1 时，它会去width$数据流中，寻找距离时间点最近的值，直到 2 出现, rxjs将两个数据流进行合并转换,计算出结果2，当再次在length 输入3 时,它会去width$流中，寻找距离时间点出现最近的值，即2 ，rxjs 再次进行合并转换，计算出结果6。同样的道理，如果在width 输入值，也会去length$流中寻找距离时间最近的值，再次进行合并转换。  
 
 将combineLatest换成zip操作符时，zip操作符也可将多个流进行合并，与combineLatest 不同的是，要求合并流必须有新值出现的时候，且必须是成对出现的时候，才进行合并。  
 转换过程，如下图所示:
-
+![image](https://github.com/13001595866/RxJS/blob/master/photo/6.png?raw=true)
 
 **事件流
    理解Rx的关键是要把任何变化都想象成流,Rx会把数据主动推送给你，因此只需要在subscribe里面监听就可以**。
@@ -89,9 +93,11 @@ height$.subscribe( val => console.log(val))
 width$.subscribe( val => console.log(val))
 area$.subscribe( val => console.log(val));
 ```
-输出结果:
+输出结果:  
+![image](https://github.com/13001595866/RxJS/blob/master/photo/7.png?raw=true)  
 height$流中的数据是常量3,  
 width$流快速的发射出一系列的值，如下图所示
+![image](https://github.com/13001595866/RxJS/blob/master/photo/8.png?raw=true)  
 最后width$流中的值最后是4，最后合并后的新流中aera$流中的数据始终是12
 -  fromEvent: 可以把事件转化为Observable
 -  of: 接受一系列的数据，并把它们emit出去of与from 的不同之处，除了能接受数组之外，还能接受多个对象，作为数据发射出去  
@@ -178,7 +184,8 @@ err => {
 
 
 
-原理如下图所示：
+原理如下图所示：  
+![image](https://github.com/13001595866/RxJS/blob/master/photo/9.png?raw=true)
 
 first数据流 发射出来的值 是原始的值,   
 Second 数据流是filter过滤之后的数据流   
@@ -320,8 +327,8 @@ setTimeout(function() {
 }, 2000)
 ```
 
-输出结果：
-
+输出结果：  
+![image](https://github.com/13001595866/RxJS/blob/master/photo/10.png?raw=true)
 ##### 热的示例代码：
 
 
@@ -366,19 +373,20 @@ counter$.subscribe(subject);
 ```
 
 
-输出结果：
-
+输出结果：  
+![image](https://github.com/13001595866/RxJS/blob/master/photo/12.png?raw=true)  
 Subject是 热的Observable  
 ##### 2、ReplaySubject 
 重播指定的个数的值  
-输出的结果  
+输出的结果 
+![image](https://github.com/13001595866/RxJS/blob/master/photo/13.png?raw=true)
 
 2 是从0,11开始重播，重播最新的前两个数值  
 ##### 3、BehaviorSubject 
 重播最新的值
+![image](https://github.com/13001595866/RxJS/blob/master/photo/14.png?raw=true)
 
 2是从0开始订阅，开始从最新的一个数值开始订阅
-##### Angular 中的Rx支持 
+-  Angular 中的Rx支持 
 大量内置Observable 支持： 如 Http， ReactiveForms 、Route 等  
 Async Pipe ：在页面直接表示 {{ auto$ | async}} 不需要取消订阅
-
