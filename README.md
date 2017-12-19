@@ -28,10 +28,10 @@ const height = document.getElementById("height");
 const height$ = Rx.Observable.fromEvent(height, "keyup");
 height$.subscribe( val => console.log(val))
 ```
-控制台输出:
-![image](https://github.com/13001595866/RxJS/blob/master/photo/2.png?raw=true)
+控制台输出:  
+![image](https://github.com/13001595866/RxJS/blob/master/photo/2.png?raw=true)  
 
-图 1-2 控制台输出图  
+图 1-2 控制台输出图    
 height$的订阅函数里面输出了height的keyup的事件对象。
 获取height的value值 ，即代码改造
 
@@ -39,21 +39,21 @@ height$的订阅函数里面输出了height的keyup的事件对象。
 ```
 height$.subscribe( val => console.log(val.target.value + ' ' + new Date()))
 ```
-Console的控制台输出结果:
-![image](https://github.com/13001595866/RxJS/blob/master/photo/3.png?raw=true)
-图 1-3 控制台输出图
-在文本框内陆续输入123456, 控制台输出结果。  
+Console的控制台输出结果:  
+![image](https://github.com/13001595866/RxJS/blob/master/photo/3.png?raw=true)  
+图 1-3 控制台输出图  
+在文本框内陆续输入123456, 控制台输出结果。    
 Rxjs 在控制台上输出一系列数据，这些数据在不同的时间点上，形成了沿着不同时间点走的事件流，即数据流。在不同的时间点上发射出一个值，这些值汇总成了Rxjs的数据流。从结果上我们可以得出Rxjs对数据的处理上，是加入了时间的考量。
 - Rxjs 如何合并和转换数据流
    Rxjs 除了在不同的时间点上发射出值之外，还能对多个数据流进行转换和合并，例如:
-  Html 代码:
+  Html 代码:  
 
 ```
 <div><input type="text" id="length"></div>
 <div><input type="text" id="width"></div>
 <div id="area"></div>
 ```
-JS 代码：
+JS 代码：  
 
 ```
 const length = document.getElementById("length");
@@ -64,11 +64,11 @@ const area = document.getElementById("area");
 const area$ = Rx.Observable.combineLatest(length$, width$, (l, w) => {return l * w;})
 area$.subscribe(val => area.innerHTML = val);
 ```
-输出结果：
-![image](https://github.com/13001595866/RxJS/blob/master/photo/4.png?raw=true)
+输出结果：  
+![image](https://github.com/13001595866/RxJS/blob/master/photo/4.png?raw=true)  
 combineLatest操作符将length$和width$两个数据流进行合并依据条件转换成流area$。只有当两个流中都有数据的时候,才进行合并转换，如果其中一个流没有值，则不进行转换。
-转换过程 如下图所示： 
-![image](https://github.com/13001595866/RxJS/blob/master/photo/5.png?raw=true)
+转换过程 如下图所示：   
+![image](https://github.com/13001595866/RxJS/blob/master/photo/5.png?raw=true)  
 当length$ 数据流中出现1 时，它会去width$数据流中，寻找距离时间点最近的值，直到 2 出现, rxjs将两个数据流进行合并转换,计算出结果2，当再次在length 输入3 时,它会去width$流中，寻找距离时间点出现最近的值，即2 ，rxjs 再次进行合并转换，计算出结果6。同样的道理，如果在width 输入值，也会去length$流中寻找距离时间最近的值，再次进行合并转换。  
 
 将combineLatest换成zip操作符时，zip操作符也可将多个流进行合并，与combineLatest 不同的是，要求合并流必须有新值出现的时候，且必须是成对出现的时候，才进行合并。  
