@@ -184,7 +184,7 @@ err => {
 
 
 
-原理如下图所示：  
+原理如下图所示：    
 ![image](https://github.com/13001595866/RxJS/blob/master/photo/9.png?raw=true)
 
 first数据流 发射出来的值 是原始的值,   
